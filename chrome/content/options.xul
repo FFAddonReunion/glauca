@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://glauca/skin/options.css" type="text/css"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://glauca/locale/options.dtd">
+
+<page id="glauca-preferences"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      title="&prefwindow.title;"
+      onload="glauca.options.onLoad()">
+    <script type="application/x-javascript" src="chrome://glauca/content/glauca.js"/>
+    <prefpane id="glauca-options-pane" align="left">
+	
+		<preferences>
+			<preference id="glauca-options-filter-rt-pref" name="extensions.glauca.filter-rt" type="string" instantApply="true"/>
+			<preference id="glauca-options-filter-auto-pref" name="extensions.glauca.filter-auto" type="bool" instantApply="true"/>
+			<preference id="glauca-options-filter-showMine-pref" name="extensions.glauca.filter-showMine" type="bool" instantApply="true"/>
+			<preference id="glauca-options-display-autoWidth" name="extensions.glauca.display-autoWidth" type="bool" instantApply="true"/>
+			<preference id="glauca-options-display-showRt" name="extensions.glauca.display-showRt" type="bool" instantApply="true"/>
+			<preference id="glauca-options-display-showEmMark" name="extensions.glauca.display-showEmMark" type="bool" instantApply="true"/>
+			<preference id="glauca-options-display-showPicIcon" name="extensions.glauca.display-showPicIcon" type="bool" instantApply="true"/>
+			<preference id="glauca-options-display-showVideoIcon" name="extensions.glauca.display-showVideoIcon" type="bool" instantApply="true"/>
+			<preference id="glauca-options-style-nickLength" name="extensions.glauca.style-nickLength" type="int" instantApply="true"/>
+			<preference id="glauca-options-style-statusLength" name="extensions.glauca.style-statusLength" type="int" instantApply="true"/>
+			<preference id="glauca-options-style-rollSpeed" name="extensions.glauca.style-rollSpeed" type="int" instantApply="true"/>
+		</preferences>
+	
+		<hbox>
+			<vbox id="glauca-options-radioBox">
+				<radiogroup id="glauca-options-tabs" flex="1" oncommand='glauca.options.eventHandlers.switchDeck(this.value);'>
+					<radio label="信息过滤" value="0"/>
+					<radio label="快捷显示设置" value="1"/>
+					<radio label="验证" value="2"/>
+				</radiogroup>
+			</vbox>
+			<deck id="glauca-options-deck" selectedIndex="0">
+				<vbox id="glauca-options-infoPage">
+					<groupbox id="glauca-options-displayFilterOptions">
+						<caption label="消息列表过滤"/>
+						<label class="glauca-options-groupIntro" value="详细筛选微博，只在地址栏滚动显示那些对您来说真正有用的消息，并对他们的显示方式进行定制"/>
+						<checkbox disabled="true" preference="glauca-options-filter-auto-pref" label="智能过滤垃圾消息"/>
+						<checkbox preference="glauca-options-filter-showMine-pref" label="显示我自己的微博消息"/>
+					</groupbox>
+				</vbox>
+				<vbox id="glauca-options-displayPage">
+					
+					<groupbox id="glauca-options-displayBehaviourOptions">
+						<caption label="消息显示方式"/>
+						<label class="glauca-options-groupIntro" value="为快捷显示栏的组件行为进行详细设置"/>
+						<radiogroup id="glauca-options-filterGroup" selectedIndex="0">
+							<radio class="glauca-options-radio" id="glauca-options-filter-showAllTweets" label="正常显示转发微博的全部内容" value="0"/>
+							<radio class="glauca-options-radio" id="glauca-options-filter-disableRTList" label="不显示转发名单" value="1"/>
+							<radio class="glauca-options-radio" id="glauca-options-filter-showOneRT" label="只显示最右转发" value="2"/>
+						</radiogroup>
+						<checkbox preference="glauca-options-display-autoWidth" label="使用自适应长度信息显示框"/>
+						<checkbox preference="glauca-options-display-showRt" label="显示被转发微博信息"/>
+						<checkbox preference="glauca-options-display-showPicIcon" label="对有图片的微博显示图片图标"/>
+						<checkbox preference="glauca-options-display-showVideoIcon" label="对有视频的微博显示视频图标"/>
+					</groupbox>
+					<groupbox id="glauca-options-displayStyleOptions">
+						<caption label="消息样式定义"/>
+						<label class="glauca-options-groupIntro" value="对快捷显示栏的样式进行定制"/>
+						<hbox>
+							<label value="昵称最多显示的字符数"/>
+							<textbox class="glauca-number" preference="glauca-options-style-nickLength" id="glauca-options-displayStyle-nickLength" type="number" max="15" min="2" increment="1" flex="0"/>
+						</hbox>
+						<hbox>
+							<label value="微博最多显示的字符数"/>
+							<textbox class="glauca-number" preference="glauca-options-style-statusLength" id="glauca-options-displayStyle-statusLength" type="number" max="35" min="6" increment="1"/>
+						</hbox>
+					</groupbox>
+				</vbox>
+				<vbox id="glauca-option-authorizePage">
+					<hbox id="glauca-option-authorization-after">
+						<label value="您必须通过新浪认证使用本程序，如果发现接发微博有任何异常，可以先尝试重新验证。" flex="1"/>
+						<button id="glauca-option-authorization-reauthorizeBtn"
+								label="重新验证" flex="0" min-width="60px" max-width="60px" onclick='glauca.options.eventHandlers.reOauth();'/>
+					</hbox>
+				</vbox>
+			</deck>
+		</hbox>
+    </prefpane>
+</page>

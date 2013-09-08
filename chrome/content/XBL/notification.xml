@@ -1,0 +1,68 @@
+<bindings xmlns="http://www.mozilla.org/xbl"
+  xmlns:xbl="http://www.mozilla.org/xbl"
+  xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <binding id="glauca-notification-xbl" extends="chrome://global/content/bindings/popup.xml#panel">
+        <content>
+            <xul:vbox>
+                <xul:label anonid="commentLabel" class="text-link" onclick="gBrowser.selectedTab = gBrowser.addTab('http://weibo.com/comments');"/>
+                <xul:label anonid="mentionLabel" class="text-link" onclick="gBrowser.selectedTab = gBrowser.addTab('http://weibo.com/atme');" />
+                <xul:label anonid="dmLabel" class="text-link" onclick="gBrowser.selectedTab = gBrowser.addTab('http://weibo.com/messages');" />
+                <xul:label anonid="fansLabel" class="text-link" onclick="gBrowser.selectedTab = gBrowser.addTab('http://weibo.com/atme');"/>
+            </xul:vbox>
+        </content>
+        <implementation>
+            <field name="comment">0</field>
+            <field name="mention">0</field>
+            <field name="dm">0</field>
+            <field name="fans">0</field>
+            <property name="comment">
+                <getter><![CDATA[
+                    return this.getAttribute('comment');
+                    ]]>
+                </getter>
+                <setter><![CDATA[
+                    var label=document.getAnonymousElementByAttribute(this,'anonid','commentLabel');
+                    label.value="您有"+val+"条新评论";
+                    this.setAttribute('comment',val);
+                    ]]>
+                </setter>
+            </property>
+            <property name="mention">
+                <getter><![CDATA[
+                    return this.getAttribute('mention');
+                    ]]>
+                </getter>
+                <setter><![CDATA[
+                    var label=document.getAnonymousElementByAttribute(this,'anonid','mentionLabel');
+                    label.value="有"+val+"条消息提到您";
+                    this.setAttribute('mention',val);
+                    ]]>
+                </setter>
+            </property>
+            <property name="dm">
+                <getter><![CDATA[
+                    return this.getAttribute('dm');
+                    ]]>
+                </getter>
+                <setter><![CDATA[
+                    var label=document.getAnonymousElementByAttribute(this,'anonid','dmLabel');
+                    label.value="您有"+val+"条新私信";
+                    this.setAttribute('dm',val);
+                    ]]>
+                </setter>
+            </property>
+            <property name="fans">
+                <getter><![CDATA[
+                    return this.getAttribute('fans');
+                    ]]>
+                </getter>
+                <setter><![CDATA[
+                    var label=document.getAnonymousElementByAttribute(this,'anonid','fansLabel');
+                    label.value="您有"+val+"个新粉丝";
+                    this.setAttribute('fans',val);
+                    ]]>
+                </setter>
+            </property>
+        </implementation>
+    </binding>
+</bindings>

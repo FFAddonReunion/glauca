@@ -1,0 +1,137 @@
+prefpane{
+	-moz-box-flex:1;
+	-moz-box-align:stretch;
+	display:-moz-box;
+}
+prefpane>hbox{
+	-moz-box-flex:1;
+}
+hbox>deck,vbox{
+	-moz-box-flex:1;
+}
+radiogroup#glauca-options-tabs{
+	font-size:30px!important;
+}
+radio>.radio-check-box1{
+	display:none;
+}
+
+radiogroup#glauca-options-tabs {
+	-moz-appearance:none;
+	padding:10px 0 25px;
+	color:#B2F63D;
+}
+radiogroup#glauca-options-tabs radio{
+	-moz-appearance:none;
+	padding:5px 2em 5px 2em;
+	color:#7AB02C;
+}
+#glauca-options-radioBox{
+	-moz-appearance:none;
+	background-color:#CFF76F;
+	min-width:300px;
+}
+radiogroup#glauca-options-tabs  radio[selected]{
+	background-color:#619A00;
+	color:#000;
+}
+deck#glauca-options-deck{
+	margin: 10px 1em;
+}
+deck#glauca-options-deck>vbox{
+	overflow:auto;
+}
+deck label{
+	padding:5px 0;
+}
+*{
+	margin:0;
+	padding:0;
+	background:none repeat scroll 0 0 padding-box transparent;
+	border:0 none;
+	font-family: "微软雅黑","Lucida Grande", sans-serif;
+}
+/*****  display page styles   *****/
+groupbox{
+	-moz-appearance:none;
+	margin: 0 0 1.2em;
+}
+groupbox caption{
+	font-size:25px;
+	color:#619A00;
+}
+groupbox label.glauca-options-groupIntro{
+	font-size:16px;
+	color:#7AB02C;
+	padding-top:1em;
+	padding-bottom:1em;
+}
+radiogroup#glauca-options-filterGroup>radio{
+	color:#c1d1bf;
+}
+radio.glauca-options-radio{
+	list-style-position: inside;
+}
+radio.glauca-options-radio>.radio-check{/*image*/
+	background:url("chrome://glauca/skin/rb-bg.png") no-repeat!important;
+	height:25px;
+	width:25px;
+}
+radio.glauca-options-radio>.radio-check-box1{
+	-moz-appearance: none !important;
+	padding: 0;
+	width: 25px;
+	height: 25px;
+	display:block;
+	list-style-image: none;
+	background: none;
+}
+radio.glauca-options-radio:not([disabled="true"]):hover:active >.radio-check{
+	background:url("chrome://glauca/skin/rb-bg-hover.png") no-repeat!important;
+}
+
+radio.glauca-options-radio[selected]>.radio-check{
+	background:url("chrome://glauca/skin/rb-se.png") no-repeat!important;
+}
+radio.glauca-options-radio[selected]:not([disabled="true"]):hover:active>.radio-check{
+	background:url("chrome://glauca/skin/rb-se-hover.png") no-repeat!important;
+}
+radiogroup#glauca-options-filterGroup>radio[selected]{
+	color:black;
+}
+radio#glauca-options-filter-showAllTweets{
+	background-position:0px,-25px;
+}
+
+/************** textbox number style********************/
+textbox.glauca-number{
+	width:7em;
+	height:2em;
+	-moz-appearance:none;
+	margin-left:5px;
+	border:2px solid #619A00;
+}
+.spinbuttons-box {
+	-moz-box-orient: horizontal;
+}
+
+.spinbuttons-up,.spinbuttons-down {
+	-moz-appearance:none;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	min-width: 30px;
+	max-width:30px;
+}
+.spinbuttons-up{
+	list-style-image: url(add.png);
+}
+.spinbuttons-down{
+	list-style-image: url(minus.png);
+}
+.spinbuttons-up:hover,.spinbuttons-down:hover{
+	background-color:#B2F63D;
+}
+.spinbuttons-up:hover:active,.spinbuttons-down:hover:active{
+	background-color:#7AB02C;
+}

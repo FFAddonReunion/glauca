@@ -1,0 +1,6 @@
+<!ENTITY glaucaPanel.time.second "秒前">
+<!ENTITY glaucaPanel.time.minute "分钟前">
+<!ENTITY glaucaPanel.time.hour "小时前">
+<!ENTITY glaucaPanel.time.today "今天">
+<!ENTITY glaucaPanel.time.yesterday "昨天">
+<!ENTITY glaucaPanel.time.twodays "前天">

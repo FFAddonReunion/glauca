@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<bindings xmlns="http://www.mozilla.org/xbl"
+         xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <binding id="glauca-emotions-xbl" extends="chrome://global/content/bindings/popup.xml#panel">
+    <content>
+      <xul:tabbox maxWidth="305px" height="150px" anonid="glauca-emotions-tabbox">
+	<xul:arrowscrollbox class="tabbrowser-arrowscrollbox" style="max-width:300px;" orient="horizontal">
+	  <xul:tabs anonid="glauca-emotions-tabs" style="max-width:300px;">
+	  </xul:tabs>
+	</xul:arrowscrollbox> 
+	<xul:tabpanels flex="1" maxwidth="280px" height="130px" anonid="glauca-emotions-tabContainer">
+	</xul:tabpanels>
+      </xul:tabbox>
+    </content>
+    <implementation>
+	<method name="getTypeObjByName">
+	  <parameter name="name"/>
+	  <body>
+	    for(var i in this.types){
+	      if(this.types[i].id==name)return this.types[i];
+	    }
+	    return null;
+	  </body>
+	</method>
+	<method name="addType">
+	  <parameter name="name"/>
+	  <body>
+	    var typeObj=null;
+	    typeObj=this.getTypeObjByName(name);
+	    if(typeObj!=null)return typeObj;
+	    typeObj={
+		    id:name,
+		    emotions:[],
+		    pageObj:null
+	    };
+	    this.types.push(typeObj);
+	    var tabs=document.getAnonymousElementByAttribute(this,"anonid","glauca-emotions-tabs");
+	    if(name!="")tabs.appendItem(name);
+	    else tabs.appendItem("默认");
+	    var panel=document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','tabpanel');
+	    var des=document.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul','description');
+	    panel.className="glauca-emotions-container";
+	    des.className="glauca-emotions-container";
+	    panel.appendChild(des);
+	    typeObj.pageObj=des;
+	    document.getAnonymousElementByAttribute(this,"anonid","glauca-emotions-tabContainer").appendChild(panel);
+	    var tabbox=document.getAnonymousElementByAttribute(this,"anonid","glauca-emotions-tabbox");
+	    if(tabbox.selectedIndex==-1)tabbox.selectedIndex=0;
+	    return typeObj;
+	  </body>
+	</method>
+	<method name="addEmotionToType">
+	  <parameter name="typeObj"/>
+	  <parameter name="emo_name"/>
+	  <parameter name="emo_url"/>
+	  <body>
+	    
+	    var emotion={
+	      tag:emo_name,
+	      url:emo_url
+	    };
+	    typeObj.emotions.push(emotion);
+	    const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+	    var image=document.createElementNS(XUL_NS,'image');
+	    image.setAttribute("src",emo_url);
+	    image.setAttribute("id",emo_name);
+	    image.className="glauca-emotion-selector";
+	    var tmp=this;
+	    image.onclick=function(e){
+	      tmp.callback(e.target.id);
+	    };
+	    typeObj.pageObj.appendChild(image);
+	  </body>
+	</method>
+	<constructor>
+	  this.types=[];
+	  this.callback=null;
+	</constructor>
+	<field name="types"/>
+	<field name="callback"/>
+	<method name="registerCallback">
+	  <parameter name="obj"/>
+	  <body>
+	    this.callback=obj;
+	  </body>
+	</method>
+    </implementation>
+  </binding>
+</bindings>

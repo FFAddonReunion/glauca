@@ -1,0 +1,10 @@
+content   glauca                 chrome/content/
+skin      glauca   classic/1.0   chrome/skin/
+locale    glauca   en-US         chrome/locale/en-US/
+resource  glaucares				 chrome/skin/
+
+component {2b453020-c42a-11e0-962b-0800200c9a66} chrome/content/pages/configPage.js
+contract @mozilla.org/network/protocol/about;1?what=glauca {2b453020-c42a-11e0-962b-0800200c9a66}
+
+overlay   chrome://browser/content/browser.xul   chrome://glauca/content/ff-overlay.xul
+style chrome://global/content/customizeToolbar.xul chrome://glauca/skin/toolbar.css

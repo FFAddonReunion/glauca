@@ -1,0 +1,105 @@
+#glauca-toolbar-button
+{
+  list-style-image: url("chrome://glauca/skin/toolbar-button.png");
+  -moz-image-region: rect(0px 24px 24px 0px);
+}
+#glauca-toolbar-button:hover
+{
+  -moz-image-region: rect(24px 24px 48px  0px);
+}
+[iconsize="small"] #glauca-toolbar-button
+{
+  -moz-image-region: rect( 0px 40px 16px 24px);
+}
+[iconsize="small"] #glauca-toolbar-button:hover
+{
+  -moz-image-region: rect(24px 40px 40px 24px);
+}
+#glauca-emotionsPanel{
+  -moz-binding:url("chrome://glauca/content/XBL/emotions.xml#glauca-emotions-xbl");
+}
+#glauca-notificationPanel{
+  -moz-binding: url("chrome://glauca/content/XBL/notification.xml#glauca-notification-xbl");
+}
+.glauca-emotions-container{
+  overflow-y:scroll;
+  display: block;
+  max-width: 280px;
+}
+tab{
+  -moz-user-focus:ignore;
+}
+.glauca-btn{
+	-moz-appearance:none;
+	min-width:0;
+	border-radius:2px;
+	border:2px #033E6B;
+	transition-property:background-image;
+	transition-duration:0.5s;
+	transition-delay:0s;
+	background-color:transparent;
+	margin:3px;
+}
+.glauca-btn .button-icon{
+	max-width:16px;
+	max-height:16px;
+	display:inline-block;
+}
+.glauca-btn .button-text{
+	font-size:12px;
+	color:#888888;
+}
+.glauca-btn:hover .button-text{
+	color:white;
+}
+.glauca-btn:hover{
+	transition-property:background-image;
+	transition-duration:0.5s;
+	transition-delay:0s;
+	background-image:-moz-linear-gradient(center top , #4D90FE, #4787ED);
+}
+#glauca-replyBtn{
+	list-style-image:url('co-nse.png');
+}
+#glauca-replyBtn:hover{
+	list-style-image:url('co-se.png');
+}
+#glauca-rtBtn{
+	list-style-image:url('re-nse.png');
+}
+#glauca-rtBtn:hover{
+	list-style-image:url('re-se.png');
+}
+#glauca-starBtn{
+	list-style-image:url('star-nse.png');
+}
+#glauca-starBtn:hover{
+	list-style-image:url('star-se.png');
+}
+#glauca-replyBox{
+	-moz-appearance:none;
+	border-color: rgba(0,0,0,.18) rgba(0,0,0,.23) rgba(0,0,0,.13) !important;
+	background: linear-gradient(hsla(0,0%,90%,.35), hsla(0,0%,100%,.75)) padding-box !important;
+	box-shadow: 0 1px 0 hsla(0,0%,100%,.2) inset,
+				  0 0 0 1px hsla(0,0%,100%,.27) inset,
+				  0 1px 0 hsla(0,0%,100%,.4) !important;
+	border:1px solid;
+	margin-left:8px;
+	margin-right:8px;
+}
+#glauca-replyBox:hover{
+	background:linear-gradient(hsla(0,0%,95%,.65), hsla(0,0%,100%,.95)) padding-box !important;
+	box-shadow: 0 1px 0 hsla(0,0%,100%,.8) inset,
+				  0 0 0 1px hsla(0,0%,100%,.87) inset,
+				  0 1px 0 hsla(0,0%,100%,.9) !important;
+}
+#glauca-retweet-authorInfo{
+	margin-left:8px;
+}
+#glauca-tweetInfo{
+	color:#92CBC4;
+	font-size:12px;
+}
+#glauca-emotionsButton{
+	list-style-image:url('smiley.png');
+}

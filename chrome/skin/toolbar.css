@@ -1,0 +1,120 @@
+
+#glauca-urlbar-authorVicon{
+    list-style-image:url("chrome://glauca/skin/v.png");
+    height:16px;
+    width:16px;
+	margin-top:0px;
+}
+#glauca-urlbar-videoIcon{
+	list-style-image:url("chrome://glauca/skin/documentary.png");
+	height:16px;
+    width:16px;
+	margin:4px;
+	margin-top:0px;
+}
+#glauca-urlbar-imageIcon{
+	list-style-image:url("chrome://glauca/skin/screenshot.png");
+	height:16px;
+    width:16px;
+	margin:4px;
+	margin-top:0px;
+}
+#glauca-author-name{
+    font-weight:bold;
+    text-shadow: 1px 1px 1px #B4B4B4;
+    font-family:"Microsoft YaHei";
+	cursor:pointer;
+}
+#glauca-emotionsPanel{
+    max-width: 305px;
+}
+#glauca-panel{
+}
+#glauca-tweetText{
+    word-wrap:break-word;
+    margin-top:-10px;
+}
+#glauca-tweetImage{
+    margin:-8px 8px 8px 8px;
+    transition:all 0.5e ease;
+    opacity:0.8;
+	cursor:pointer;
+}
+#glauca-tweetImage:hover{
+    opacity:1;
+    box-shadow: 0px 0px 10px #447E15;
+}
+#glauca-tweetBody{
+    padding: 0px;
+    margin:4px;
+    -moz-border-radius: 6px;
+    border: 4px solid white;
+    box-shadow: 0 0 3px #aaaaaa;
+	background:white;
+}
+#glauca-tweet-authorInfo{
+    margin: 4px;
+    background-color:white;
+    box-shadow: 2px 2px 2px #dddddd;
+	margin-left:-2px;
+	border: 1px solid #ddd;
+	border-left:none;
+}
+#glauca-tweet-authorInfo:hover{
+    background-color:#D7F1FF;
+}
+#glauca-panel-authorImage{
+    background: #ffffff;
+    padding: 4px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 2px 2px 2px #dddddd;
+	cursor:pointer;
+}
+#glauca-panel-retweetAuthorName{
+    font-weight:bold;
+    text-shadow: 1px 1px 1px #B4B4B4;
+    font-family:"Microsoft YaHei";
+	cursor:pointer;
+}
+#glauca-retweetBody{
+    margin:-10px 8px 8px 10px;
+    padding:4px;
+    background-color:#F2F2F2;
+    -moz-border-radius: 6px;
+    border: 1px solid #E3EFEA;
+	border-radius: 6px;
+}
+#glauca-retweetText{
+    margin-top:-10px;
+}
+#glauca-retweetImage{
+    margin:-8px 8px 8px 8px;
+    opacity:0.8;
+    cursor:pointer;
+}
+#glauca-retweetImage:hover{
+	opacity:1;
+	box-shadow: 0px 0px 10px #447E15;
+}
+#glauca-panel-retweetAuthorImage{
+	cursor:pointer;
+}
+.glauca-emotion-selector{
+    border:1px solid #aaa;
+    padding:1px;
+    width:22px;
+    height:22px;
+    -moz-appearence:none;
+}
+.glauca-emotion-selector:hover{
+    background-color:#DBF7B2;
+}
+#glauca-urlbar-noti{
+    margin-left:2px;
+    margin-right:2px;
+    background:#DBF7B2;
+}
+#glauca-urlbar-postBtn{
+	margin-left:5px;
+}
