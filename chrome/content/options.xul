@@ -27,9 +27,9 @@
 		<hbox>
 			<vbox id="glauca-options-radioBox">
 				<radiogroup id="glauca-options-tabs" flex="1" oncommand='glauca.options.eventHandlers.switchDeck(this.value);'>
-					<radio label="信息过滤" value="0"/>
-					<radio label="快捷显示设置" value="1"/>
-					<radio label="验证" value="2"/>
+					<radio class="option-tab-filter" label="信息过滤" value="0"/>
+					<radio class="option-tab-display" label="快捷显示设置" value="1"/>
+					<radio class="option-tab-oauth" label="验证" value="2"/>
 				</radiogroup>
 			</vbox>
 			<deck id="glauca-options-deck" selectedIndex="0">
@@ -47,14 +47,14 @@
 						<caption label="消息显示方式"/>
 						<label class="glauca-options-groupIntro" value="为快捷显示栏的组件行为进行详细设置"/>
 						<radiogroup id="glauca-options-filterGroup" selectedIndex="0">
-							<radio class="glauca-options-radio" id="glauca-options-filter-showAllTweets" label="正常显示转发微博的全部内容" value="0"/>
-							<radio class="glauca-options-radio" id="glauca-options-filter-disableRTList" label="不显示转发名单" value="1"/>
-							<radio class="glauca-options-radio" id="glauca-options-filter-showOneRT" label="只显示最右转发" value="2"/>
+							<radio class="glauca-options-radio option-item" id="glauca-options-filter-showAllTweets" label="正常显示转发微博的全部内容" value="0"/>
+							<radio class="glauca-options-radio option-item" id="glauca-options-filter-disableRTList" label="不显示转发名单" value="1"/>
+							<radio class="glauca-options-radio option-item" id="glauca-options-filter-showOneRT" label="只显示最右转发" value="2"/>
 						</radiogroup>
-						<checkbox preference="glauca-options-display-autoWidth" label="使用自适应长度信息显示框"/>
-						<checkbox preference="glauca-options-display-showRt" label="显示被转发微博信息"/>
-						<checkbox preference="glauca-options-display-showPicIcon" label="对有图片的微博显示图片图标"/>
-						<checkbox preference="glauca-options-display-showVideoIcon" label="对有视频的微博显示视频图标"/>
+						<checkbox preference="glauca-options-display-autoWidth" class=' option-item' label="使用自适应长度信息显示框"/>
+						<checkbox preference="glauca-options-display-showRt" class=' option-item' label="显示被转发微博信息"/>
+						<checkbox preference="glauca-options-display-showPicIcon" class=' option-item' label="对有图片的微博显示图片图标"/>
+						<checkbox preference="glauca-options-display-showVideoIcon" class=' option-item' label="对有视频的微博显示视频图标"/>
 					</groupbox>
 					<groupbox id="glauca-options-displayStyleOptions">
 						<caption label="消息样式定义"/>

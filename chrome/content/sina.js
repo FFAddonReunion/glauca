@@ -215,12 +215,12 @@ glauca.sina={
 								  .getService(Components.interfaces.nsIPrefService).getBranch("extensions.glauca.");
 			//adjust the author name length
 			var nickLength=prefs.getIntPref("style-nickLength");
-			var nickPanel=glauca.cons.mw.window.document.getElementById("glauca-urlbar-author");
-			if(parseInt(nickPanel.style.width)>nickLength){
-				nickPanel.style.width=nickLength+"em";
-				//glauca.cons.mw.window.document.getElementById("glauca-urlbar-author").style.width=nickLength+2+"em";
-			}
-			nickPanel.style.maxWidth=nickLength+"em";
+			// var nickPanel=glauca.cons.mw.window.document.getElementById("glauca-urlbar-author");
+			// if(parseInt(nickPanel.style.width)>nickLength){
+			// 	nickPanel.style.width=nickLength+"em";
+			// 	//glauca.cons.mw.window.document.getElementById("glauca-urlbar-author").style.width=nickLength+2+"em";
+			// }
+			// nickPanel.style.maxWidth=nickLength+"em";
 			//adjust the status length
 			//remember that this only gives a max length of the status bar,the real length will also be affected by the autoWidth pref
 			var statusLength=prefs.getIntPref("style-statusLength");
@@ -265,7 +265,7 @@ glauca.sina={
 				var width=400;
 				mw.window.document.getElementById("glauca-replyPanel").style.display="none";
 				mw.window.document.getElementById("glauca-replyBox").value="";
-				mw.window.document.getElementById("glauca-panel-body").style.width=width-10+"px";
+				//mw.window.document.getElementById("glauca-panel-body").style.width=width-10+"px";
 				if(parseInt(panel.clientWidth)==0)return;
 				
 				des.style.width=width-50+'px';
@@ -306,11 +306,11 @@ glauca.sina={
 			else rt.style.display="none";
 			var source=cTweet.source;
 			if(source!=null&&source!=''){
-				//source=source.replace("<a href", "<html:a href");
+				source=source.replace("<a href", "<html:a href");
+				source=source.replace("</a","</html:a").replace(/href=[\"|']([^\"']+)[\"|']/,"href='#'");
 				var dp=new DOMParser();
 				var element=mw.window.document.getElementById('glauca-tweetInfo-postedFrom');
-				while(element.lastChild)element.removeChild(element.lastChild);
-				element.appendChild(dp.parseFromString(source, "text/xml").documentElement);
+				element.innerHTML=source;
 			}
 			
 			//alert(cTweet["created_at"]);
@@ -339,6 +339,14 @@ glauca.sina={
 			}
 			else timeLabel.value=date.toLocaleDateString();
 			mw.window.document.getElementById('glauca-tweetInfo-index').value=glauca.sina.display.currentTweet+1+"/"+glauca.sina.tweetData.length;
+			//adjust panel size
+			panel.style.height=mw.window.document.getElementById('glauca-panel-body').getBoundingClientRect().height;
+			//generate the like button
+			var sb=document.getElementById("glauca-strings");
+			var likeBtn=mw.window.document.getElementById('glauca-likeBtn');
+			if(cTweet.liked==true){
+				likeBtn.innerHTML=sb.getString("glaucaPanel.panel.liked");
+			}else likeBtn.innerHTML=sb.getString("glaucaPanel.panel.like");
 			
 		},
 		/**
@@ -348,83 +356,36 @@ glauca.sina={
 		 *Then add the html element to the eId DOM element
 		 */
 		generateRichText: function(text,eId,flag) {
-			function HtmlEncode(s)
-			{
-			  var el = document.createElement("div");
-			  el.innerText = el.textContent = s;
-			  s = el.innerHTML;
-			  return s;
-			};
 			//we need this lib to handle & in a text, more info on:
 			//https://developer.mozilla.org/en/MozITXTToHTMLConv
-			var ios = Components.classes["@mozilla.org/txttohtmlconv;1"]
-						.getService(Components.interfaces.mozITXTToHTMLConv);
-			var p = 0,length = text.length;
 			text=text.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 			var container = glauca.cons.mw.window.document.getElementById(eId);
-			while (container.hasChildNodes()) {
-			container.removeChild(container.firstChild);
-			}
+			container.innerHTML="";
 			var doc = glauca.cons.mw.window.document;
 			
-			var result=["p",{style:'text-shadow: 1px 1px 1px gray;font-family:"Microsoft YaHei";'},[]];
-			function generateJson(arr,t){
+			function generateJson(t){
 				if(t=="")return;
-				var nameMatch=/(\#[^\#|.]+\#)/g.exec(t);
-				if(typeof(nameMatch)!=undefined&&nameMatch!=null&&nameMatch.length>0){
-					generateJson(arr,t.substring(0,nameMatch.index));
-					var tmp=["a",{style:'cursor:pointer;color:green;',onclick:function(){glauca.opentab("http://weibo.com/k/"+nameMatch[0].replace(/\#/g,""))}},[]];
-					var textNode=["textNode",{value:glauca.sina.htmlString(nameMatch[0])}];
-					tmp[2].push(textNode);
-					arr[2].push(tmp);
-					generateJson(arr,t.substring(nameMatch.index+nameMatch[0].length,t.length));
-				}
-				else{
-					var atMatch=/(\@[\u4e00-\u9fa5A-Za-z0-9_]+)/g.exec(t);
-					if(typeof(atMatch)!=undefined&&atMatch!=null&&atMatch.length>0){
-						generateJson(arr,t.substring(0,atMatch.index));
-						var tmp=["a",{style:'cursor:pointer;color:green;',onclick:function(){glauca.opentab("http://weibo.com/n/"+atMatch[0].replace(/\@/g,""));}},[]];
-						var textNode=["textNode",{value:glauca.sina.htmlString(atMatch[0])}];
-						tmp[2].push(textNode);
-						arr[2].push(tmp);
-						generateJson(arr,t.substring(atMatch.index+atMatch[0].length,t.length));
+				t=t.replace(/(\#[^\#]+\#)/g,function(match){
+					return "<html:a class='tweet-link' onclick='glauca.opentab(\"http://weibo.com/k/"+match.substring(1,match.length-1)+"\")'>"+match+"</html:a>";
+				});
+				t=t.replace(/(\@[\u4e00-\u9fa5A-Za-z0-9_-]+)/g,function(match){
+					return "<html:a class='tweet-link' onclick='glauca.opentab(\"http://weibo.com/n/"+match.substring(1)+"\")'>"+match+"</html:a>";
+				});
+				t=t.replace(/(http:\/\/t.cn\/[\w]+)/ig,function(match){
+					return "<html:a class='tweet-link' onclick='glauca.opentab(\""+match.substring(1)+"\")'>"+match+"</html:a>";
+				});
+				t=t.replace(/(\[[^\]]+\])/g,function(match){
+					var index=glauca.sina.emotions.emotionBase.tags.indexOf(match);
+					if(index!=-1){
+						return "<html:img src='"+glauca.sina.emotions.emotionBase.urls[index]+"' width='20px' height='20px'/>";
 					}
-					else{
-						var urlMatch=/(http:\/\/t.cn\/[\w]+)/g.exec(t);
-						if(typeof(urlMatch)!=undefined&&urlMatch!=null&&urlMatch.length>0){
-							generateJson(arr,t.substring(0,urlMatch.index));
-							var tmp=["a",{style:'cursor:pointer;color:green;',onclick:function(){glauca.opentab(urlMatch[0]);}},[]];
-							var textNode=["textNode",{value:glauca.sina.htmlString(urlMatch[0])}];
-							tmp[2].push(textNode);
-							arr[2].push(tmp);
-							generateJson(arr,t.substring(urlMatch.index+urlMatch[0].length,t.length));
-						}
-						else{
-							//all match failed
-							var emoMatch=/(\[.+?\])/ig.exec(t);
-							if(emoMatch!=null){
-								for(var i in emoMatch){
-									var s=emoMatch[i];
-									var index=glauca.sina.emotions.emotionBase.tags.indexOf(s);
-									var tIndex=t.indexOf(s);
-									Components.utils.reportError("Glauca:get Emotion "+s+" at index "+tIndex+" str length: "+s.length);
-									if(index!=-1){
-										arr[2].push(["textNode",{value:t.substring(0,tIndex)}]);
-										arr[2].push(["img",{src:glauca.sina.emotions.emotionBase.urls[index],width:"20px",height:"20px"}]);
-										t=t.substring(tIndex+s.length,t.length);
-									}
-								}
-							}
-							arr[2].push(["textNode",{value:t}]);
-						}
-					}
-				}
+					else return match;
+				});
+				return "<html:p>"+t+"</html:p>";
+				
 			}
-			if(flag)text+="                                                           ";
-			generateJson(result,text);
-			container.appendChild(glauca.cons.jsonToDom(result,doc,{}));
-			//var dp=new DOMParser();
-			//container.appendChild(dp.parseFromString(text, "text/xml").documentElement);
+			text=generateJson(text);
+			container.innerHTML=text;
 		},
 		stopTimer:function(){
 			glauca.sina.display.timer.cancel();
@@ -494,8 +455,8 @@ glauca.sina={
 				//if(statusLength*2==ss.length)statusLength*=2;
 				if(autoWidth&& (parseInt(statuspanel.style.width)>statusLength||statusLength<parseInt(statuspanel.style.maxWidth)))statuspanel.style.width=statusLength+"em";
 				else statuspanel.style.width=statuspanel.style.maxWidth;
-				if( nicklength<parseInt(nickpanel.style.maxWidth))nickpanel.style.width=nicklength+"em";
-				else nickpanel.style.width=nickpanel.style.maxWidth;
+				// if( nicklength<parseInt(nickpanel.style.maxWidth))nickpanel.style.width=nicklength+"em";
+				// else nickpanel.style.width=nickpanel.style.maxWidth;
 				//check the verified state
 				if (cTweet.user.verified) mw.window.document.getElementById('glauca-urlbar-authorVicon').style.display = 'block';
 				else mw.window.document.getElementById('glauca-urlbar-authorVicon').style.display = 'none';
@@ -525,6 +486,7 @@ glauca.sina={
 				else imageIcon.style.display="none";
 				if(ifShowVideoIcon&&cTweet.hasVideo)videoIcon.style.display="block";
 				else videoIcon.style.display="none";
+				mq.style.left=0;
 			}
 			if (t.currentCha > 80) {
 				mq.style.marginLeft = (parseInt(mq.style.marginLeft) > (t.tWidth - t.aw)) ? mq.style.marginLeft = parseInt(mq.style.marginLeft) + t.tSpeed + 'px' : mq.style.marginLeft;
@@ -654,22 +616,22 @@ glauca.sina={
 		}
     },
     post:{
-	postTextTweet:function(text){
-	    var message = {
-		method: 'POST',
-		action: 'https://api.weibo.com/2/statuses/update.json',
-		parameters: []
-	    };
-	    message.parameters.push(['access_token', glauca.sina.FUELoauthToken.access_token]);
-	    text=glauca.sinaOauth.percentEncode(text);
-	    var fd="status="+text+"&source=3363969519";
-		
-	    glauca.sinaOauth.sendOauthInfo(message, function(req) {
-		//ref: https://developer.mozilla.org/en/Code_snippets/Alerts_and_Notifications
-			if(req!=null)glauca.overlay.showPopup("发送成功");
-				else glauca.overlay.showPopup("网络问题导致发送失败");
-	    },fd);
-	}
+		postTextTweet:function(text){
+		    var message = {
+			method: 'POST',
+			action: 'https://api.weibo.com/2/statuses/update.json',
+			parameters: []
+		    };
+		    message.parameters.push(['access_token', glauca.sina.FUELoauthToken.access_token]);
+		    text=glauca.sinaOauth.percentEncode(text);
+		    var fd="status="+text+"&source=3363969519";
+			var sb=document.getElementById("glauca-strings");
+				glauca.sinaOauth.sendOauthInfo(message, function(req) {
+				//ref: https://developer.mozilla.org/en/Code_snippets/Alerts_and_Notifications
+				if(req!=null)glauca.overlay.showPopup(sb.getString("glaucaPanel.alert.commentSucceed"));
+				else glauca.overlay.showPopup(sb.getString("glaucaPanel.alert.commentFailed"));
+			},fd);
+		}
     },
     image: {
 	//this piece of code from:
@@ -754,9 +716,9 @@ glauca.sina={
 			var cTweet=glauca.sina.tweetData[glauca.sina.display.currentTweet];
 			var id=cTweet.retweet==null?cTweet.id:cTweet.retweet.id;
 			var message = {
-			method: 'POST',
-			action: 'https://api.weibo.com/2/comments/create.json',
-			parameters: []
+				method: 'POST',
+				action: 'https://api.weibo.com/2/comments/create.json',
+				parameters: []
 			};
 			
 			message.parameters.push(['access_token', glauca.sina.FUELoauthToken.access_token]);
@@ -764,13 +726,11 @@ glauca.sina={
 			
 			text=glauca.sinaOauth.percentEncode(text);
 			var fd="comment="+text+"&source=3363969519";
-			//var fd=new FormData();
-			//fd.append('status',text);
-			//fd.append('source','3363969519');
+			var sb=document.getElementById("glauca-strings");
 			glauca.sinaOauth.sendOauthInfo(message, function(req) {
 			//ref: https://developer.mozilla.org/en/Code_snippets/Alerts_and_Notifications
-				if(req!=null)glauca.overlay.showPopup("评论发送成功");
-				else glauca.overlay.showPopup("网络问题导致评论失败");
+				if(req!=null)glauca.overlay.showPopup(sb.getString("glaucaPanel.alert.commentSucceed"));
+				else glauca.overlay.showPopup(sb.getString("glaucaPanel.alert.commentFailed"));
 			},fd);
 		},
 		sendRt:function(){
@@ -787,10 +747,40 @@ glauca.sina={
 			message.parameters.push(['id',id]);
 			text=glauca.sinaOauth.percentEncode(text);
 			var fd="status="+text+"&source=3363969519";
+			var sb=document.getElementById("glauca-strings");
 			glauca.sinaOauth.sendOauthInfo(message, function(req) {
 				//ref: https://developer.mozilla.org/en/Code_snippets/Alerts_and_Notifications
-				if(req!=null)glauca.overlay.showPopup("转发成功");
-				else glauca.overlay.showPopup("网络问题导致转发失败");
+				if(req!=null)glauca.overlay.showPopup(sb.getString("glaucaPanel.alert.repoSucceed"));
+				else glauca.overlay.showPopup(sb.getString("glaucaPanel.alert.repoFailed"));
+			},fd);
+		},
+		sendLike:function(like){
+			var url="https://api.weibo.cn/2/like/";
+			if(like===true)url+="set_like.json";
+			else url+="set_unlike.json";
+			var cTweet=glauca.sina.tweetData[glauca.sina.display.currentTweet];
+			var id=cTweet.id;
+			var message={
+				method: 'POST',
+				action:url,
+				parameters:[
+					['access_token',glauca.sina.FUELoauthToken.access_token],
+					['id',id]
+				]
+			};
+			var fd="source=3363969519";
+			glauca.sinaOauth.sendOauthInfo(message,function(req){
+				if(req!=null){
+					//modify the button
+					cTweet.liked=like;
+					if(glauca.sina.tweetData[glauca.sina.display.currentTweet]===cTweet){
+						var sb=document.getElementById("glauca-strings");
+						var likeBtn=document.getElementById('glauca-likeBtn');
+						if(cTweet.liked==true){
+							likeBtn.innerHTML=sb.getString("glaucaPanel.panel.liked");
+						}else likeBtn.innerHTML=sb.getString("glaucaPanel.panel.like");
+					}
+				}
 			},fd);
 		}
     },

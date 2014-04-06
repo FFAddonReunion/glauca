@@ -59,7 +59,7 @@ glauca.overlay={
     mouseOnUrlbarEvent:function(event){
         if(event!=null&&event.button==2)return;
         var panel=document.getElementById("glauca-panel");
-        var urlbar=document.getElementById("glauca-urlbar-textcontainer");
+        var urlbar=document.getElementById("glauca-urlbar");
         glauca.sina.display.fillinPanel(panel);
         panel.openPopup(urlbar,"after_end");
         glauca.sina.display.stopTimer();
@@ -81,9 +81,9 @@ glauca.overlay={
         glauca.cons.mw.window.document.getElementById('glauca-replyPanel').style.display="none";
     },
     replaySendBtnEvent:function(){
+        glauca.sina.reply.sendReply();
 		glauca.cons.mw.window.document.getElementById('glauca-replyBox').value='';
         glauca.cons.mw.window.document.getElementById('glauca-replyPanel').style.display="none";
-        glauca.sina.reply.sendReply();
     },
     emotionsButtonEvent:function(event){
         glauca.sina.emotions.openPanelEvent('glauca-replyBox',event.currentTarget);
@@ -153,6 +153,13 @@ glauca.overlay={
         var tiny=document.getElementById("glauca-urlbar-tiny");
         normal.style.display="block";
         tiny.style.display="none";
+    },
+    likeBtnClickEvent:function(){
+        var buttonInner=document.getElementById("glauca-likeBtn").innerHTML;
+        var sb=document.getElementById("glauca-strings");
+        if(sb.getString("glaucaPanel.panel.like")===buttonInner){
+            glauca.sina.reply.sendLike(true);
+        }else glauca.sina.reply.sendLike(false);
     }
 };
 window.addEventListener('load',glauca.init,false);

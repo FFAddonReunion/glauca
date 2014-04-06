@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet href="chrome://glauca/skin/overlay.css" type="text/css"?>
-<?xml-stylesheet href="chrome://glauca/skin/toolbar.css" type="text/css"?>
 <!DOCTYPE overlay SYSTEM "chrome://glauca/locale/overlay.dtd">
 <overlay id="glauca-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
     <script src="glauca.js" type="text/javascript" />
@@ -9,32 +8,21 @@
         <stringbundle id="glauca-strings" src="chrome://glauca/locale/overlay.properties" />
     </stringbundleset>
 	<textbox id="urlbar">
-		<hbox id="urlbar-icons">
-			<hbox insertbefore="star-button" id="glauca-urlbar" class="textbox-input-box" >
+			<hbox insertbefore="urlbar-icons" id="glauca-urlbar" style="align:center; overflow:hidden; width:auto;max-width:400px;">
 				<hbox id="glauca-urlbar-normal" position="absolute" context="glauca-urlbar-menu" oncontextmenu="glauca.overlay.urlbarContextEvent(event)">
 					
-					<grid id="glauca-urlbar-normalState" onclick="glauca.overlay.mouseOnUrlbarEvent(event)">
-						<columns>
-							<column/>
-							<column/>
-							<column/>
-							<column/>
-							<column/>
-						</columns>
-						<rows>
-							<row>
-								<label id="glauca-urlbar-noti" value="0" style="display:none" onclick="glauca.overlay.notiClickEvent(event)"/>
-								<label id="glauca-urlbar-author" crop="right"/>
-								<image id="glauca-urlbar-authorVicon" />
-								<label value=': ' />
-								<image id="glauca-urlbar-videoIcon"/>
-								<image id="glauca-urlbar-imageIcon"/>
-								<stack id="glauca-urlbar-textcontainer" flex='0' style="overflow:hidden;">
-									<label position="relative" id="glauca-urlbar-text" value='Glauca Loading...' />
-								</stack>
-							</row>
-						</rows>
-					</grid>
+					<hbox id="glauca-urlbar-normalState" onclick="glauca.overlay.mouseOnUrlbarEvent(event)">
+
+						<label id="glauca-urlbar-noti" value="0" style="display:none" onclick="glauca.overlay.notiClickEvent(event)"/>
+						<label id="glauca-urlbar-author" crop="right"/>
+						<label id="glauca-urlbar-authorVicon" value="&#xe606;"/>
+						<label value=':' />
+						<label id="glauca-urlbar-videoIcon" value="&#xe613;"/>
+						<label id="glauca-urlbar-imageIcon" value="&#xe615;"/>
+						<stack id="glauca-urlbar-textcontainer" style="position:relative;overflow:hidden;max-width:300px;width:auto;">
+							<label width="auto" position="relative" maxWidth="400px" id="glauca-urlbar-text" value='Glauca Loading...' />
+						</stack>
+					</hbox>
 					<image style="display:none" src="chrome://glauca/skin/color.png" width="16px" height="16px" id="glauca-urlbar-tiny" onclick="glauca.overlay.tinyMouseEvent(event)"/>
 				</hbox>
 				<hbox id="glauca-urlbar-input" style="display:none">
@@ -42,7 +30,6 @@
 					<image id="glauca-urlbar-postBtn" tooltip="点击发送到新浪微博" onclick="glauca.overlay.postBtnEvent()" src="chrome://glauca/skin/send.png" width="15px" height="15px"/>
 				</hbox>
 			</hbox>
-		</hbox>
 	</textbox>
     <window id="main-window">
         <popupset id="mainPopupSet">
@@ -50,13 +37,14 @@
 				<hbox id="glauca-panel-body" flex="1">
 					<vbox id="glauca-panel-leftPanel">
 						<vbox id="glauca-panel-authorInfo">
-							<image id="glauca-panel-authorImage" src="chrome://glauca/skin/user_default.gif" width="50px" height="50px"/>
+							<image id="glauca-panel-authorImage" src="chrome://glauca/skin/user_default.gif" width="60px" height="60px"/>
 							<vbox id="glauca-panel-authorControl" />
 						</vbox>
 						<vbox id="glauca-tweetsControl">
-							<button id="glauca-replyBtn" label="评论" onclick="glauca.overlay.replyBtnClickEvent()" class="glauca-btn"/>
-							<button id="glauca-rtBtn" label="转发" onclick="glauca.overlay.rtBtnClickEvent()" class="glauca-btn"/>
-							<button id="glauca-starBtn" label="收藏" onclick="glauca.overlay.starBtnClickEvent()" class="glauca-btn"/>
+							<label id="glauca-replyBtn" value="&#xe611;评论" onclick="glauca.overlay.replyBtnClickEvent()" class="glauca-btn"/>
+							<label id="glauca-rtBtn" value="&#xe610;转发" onclick="glauca.overlay.rtBtnClickEvent()" class="glauca-btn"/>
+							<label id="glauca-starBtn" value="&#xe60b;收藏" onclick="glauca.overlay.starBtnClickEvent()" class="glauca-btn"/>
+							<label id="glauca-likeBtn" onclick="glauca.overlay.likeBtnClickEvent()" class="glauca-btn" style="font-family:serif;">赞  </label>
 						</vbox>
 					</vbox>
 					<vbox id="glauca-panel-tweet" flex="1">
@@ -70,7 +58,7 @@
 							<rows>
 								<row>
 									<hbox>
-										<description id="glauca-tweetText"/>
+										<html:div id="glauca-tweetText"/>
 									</hbox>
 								</row>
 								<row>
@@ -92,8 +80,8 @@
 											</row>
 											<row>
 												<vbox id="glauca-retweetTextBody" align="start" pack="center" margin="8px" padding="8px">
-													<description id="glauca-retweetText">
-													</description>
+													<html:div id="glauca-retweetText">
+													</html:div>
 													<image flex="0" onclick='glauca.overlay.rtImageClickEvent(event)' id="glauca-retweetImage" src="chrome://glauca/skin/ajax-loader.gif"/>
 												</vbox>
 											</row>
