@@ -7,7 +7,7 @@ pref("extensions.glauca@daiheitan.com.description", "chrome://glauca/locale/over
 pref("extensions.glauca.filter-rt","showAll");
 pref("extensions.glauca.filter-auto",false);
 pref("extensions.glauca.filter-showMine",true);
-pref("extensions.glauca.display-autoWidth",false);
+pref("extensions.glauca.display-autoWidth",true);
 pref("extensions.glauca.display-showRt",false);
 pref("extensions.glauca.display-showEmMark",true);
 pref("extensions.glauca.display-showPicIcon",true);
