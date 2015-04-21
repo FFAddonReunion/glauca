@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <setting data-jetpack-id="glauca@daiheitan.com" pref="extensions.glauca@daiheitan.com.authorize" pref-name="authorize" title="Authorize Glauca on Weibo" type="control">
+    <button data-jetpack-id="glauca@daiheitan.com" label="Authorize" oncommand="Services.obs.notifyObservers(null, 'glauca@daiheitan.com-cmdPressed', 'authorize');" pref-name="authorize"/>
+  </setting>
+  <setting data-jetpack-id="glauca@daiheitan.com" pref="extensions.glauca@daiheitan.com.show_mine" pref-name="show_mine" title="Show weibo from myself" type="bool"/>
+  <setting data-jetpack-id="glauca@daiheitan.com" pref="extensions.glauca@daiheitan.com.display_forwardtype" pref-name="display_forwardtype" title="Foward list filter" type="menulist">
+    Affects info displayed in AwesomeBar when showing a forwarded Weibo
+    <menulist>
+      <menupopup>
+        <menuitem label="Show complete weibo" value="0"/>
+        <menuitem label="Hide forward list" value="1"/>
+        <menuitem label="Show the first forward only" value="2"/>
+      </menupopup>
+    </menulist>
+  </setting>
+  <setting data-jetpack-id="glauca@daiheitan.com" pref="extensions.glauca@daiheitan.com.display_autofit" pref-name="display_autofit" title="Autofit weibo content" type="bool">Dynamically set width this add_on uses in AwesomeBar</setting>
+  <setting data-jetpack-id="glauca@daiheitan.com" pref="extensions.glauca@daiheitan.com.display_showRt" pref-name="display_showRt" title="Show Weibo being forwarded" type="bool">Append the original weibo to AwesomeBar</setting>
+  <setting data-jetpack-id="glauca@daiheitan.com" pref="extensions.glauca@daiheitan.com.display_showPicIcon" pref-name="display_showPicIcon" title="Show picture indicator" type="bool">Show an icon when the weibo contains images</setting>
+  <setting data-jetpack-id="glauca@daiheitan.com" pref="extensions.glauca@daiheitan.com.display_showVideoIcon" pref-name="display_showVideoIcon" title="Show video indicator" type="bool">Show an icon when the weibo contains video</setting>
+  <setting data-jetpack-id="glauca@daiheitan.com" pref="extensions.glauca@daiheitan.com.display_nameLength" pref-name="display_nameLength" title="Nick name display length" type="integer">Only used in AwesomeBar</setting>
+  <setting data-jetpack-id="glauca@daiheitan.com" pref="extensions.glauca@daiheitan.com.display_weiboLength" pref-name="display_weiboLength" title="Weibo display length" type="integer">Only used in AwesomeBar</setting>
+</vbox>

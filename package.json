@@ -1,0 +1,76 @@
+{
+  "name": "glauca",
+  "title": "glauca",
+  "id": "glauca@daiheitan.com",
+  "description": "Show timeline of Sina weibo in the AwesomeBar. Providing more functions at the same time.",
+  "author": "",
+  "license": "MPL 2.0",
+  "version": "6.0",
+  "preferences": [{
+    "name": "authorize",
+    "label": "Authorize",
+    "type": "control",
+    "title": "Authorize Glauca on Weibo"
+  }, {
+    "name": "show_mine",
+    "title": "Show weibo from myself",
+    "type": "bool",
+    "value": true
+  }, {
+    "name": "display_forwardtype",
+    "title": "Foward list filter",
+    "type": "menulist",
+    "value": 0,
+    "description": "Affects info displayed in AwesomeBar when showing a forwarded Weibo",
+    "options": [
+      {
+        "value": "0",
+        "label": "Show complete weibo"
+      },
+      {
+        "value": "1",
+        "label": "Hide forward list"
+      },
+      {
+        "value": "2",
+        "label": "Show the first forward only"
+      }
+    ]
+  }, {
+    "name": "display_autofit",
+    "title": "Autofit weibo content",
+    "description": "Dynamically set width this add_on uses in AwesomeBar",
+    "type": "bool",
+    "value": false
+  }, {
+    "name": "display_showRt",
+    "title": "Show Weibo being forwarded",
+    "description": "Append the original weibo to AwesomeBar",
+    "type": "bool",
+    "value": true
+  }, {
+    "name": "display_showPicIcon",
+    "title": "Show picture indicator",
+    "description": "Show an icon when the weibo contains images",
+    "type": "bool",
+    "value": true
+  }, {
+    "name": "display_showVideoIcon",
+    "title": "Show video indicator",
+    "description": "Show an icon when the weibo contains video",
+    "type": "bool",
+    "value": true
+  }, {
+    "name": "display_nameLength",
+    "title": "Nick name display length",
+    "description": "Only used in AwesomeBar",
+    "type": "integer",
+    "value": 6
+  }, {
+    "name": "display_weiboLength",
+    "title": "Weibo display length",
+    "description": "Only used in AwesomeBar",
+    "type": "integer",
+    "value": 16
+  }]
+}
