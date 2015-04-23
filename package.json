@@ -5,7 +5,7 @@
   "description": "Show timeline of Sina weibo in the AwesomeBar. Providing more functions at the same time.",
   "author": "",
   "license": "MPL 2.0",
-  "version": "6.0",
+  "version": "0.6.1",
   "preferences": [{
     "name": "authorize",
     "label": "Authorize",
